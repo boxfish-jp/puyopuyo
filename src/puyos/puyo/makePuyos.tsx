@@ -7,6 +7,7 @@ interface puyoSettingType {
 
 interface puyoCssType {
   color: string;
+  yPosition: number;
 }
 
 export const getPuyo = (puyoSetting: puyoSettingType): ComponentType => {
@@ -16,9 +17,9 @@ export const getPuyo = (puyoSetting: puyoSettingType): ComponentType => {
 export const PuyoComponent = ({
   puyoSetting,
 }: { puyoSetting: puyoSettingType }) => {
-  const [positon, setPosition] = useState({ x: 150, y: 750 });
-
   const puyoCss = getPuyoCss(puyoSetting);
+
+  const [positon, setPosition] = useState({ x: 150, y: puyoCss.yPosition });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -40,25 +41,35 @@ export const PuyoComponent = ({
 };
 
 const getPuyoCss = (puyoSetting: puyoSettingType): puyoCssType => {
-  let color: string;
-  switch (puyoSetting.color) {
+  const color = getCssColor(puyoSetting.color);
+  const yPosition = getPosition(puyoSetting.position);
+  return { color, yPosition };
+};
+
+const getPosition = (positon: string): number => {
+  switch (positon) {
+    case "up":
+      return 810;
+    case "down":
+      return 750;
+    default:
+      throw new Error("Invalid position");
+  }
+};
+
+const getCssColor = (color: string): string => {
+  switch (color) {
     case "red":
-      color = "bg-red-700";
-      break;
+      return "bg-red-700";
     case "yellow":
-      color = "bg-yellow-700";
-      break;
+      return "bg-yellow-700";
     case "green":
-      color = "bg-green-700";
-      break;
+      return "bg-green-700";
     case "blue":
-      color = "bg-blue-700";
-      break;
+      return "bg-blue-700";
     case "purple":
-      color = "bg-purple-700";
-      break;
+      return "bg-purple-700";
     default:
       throw new Error("Invalid color");
   }
-  return { color };
 };

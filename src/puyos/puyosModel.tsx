@@ -14,7 +14,9 @@ export class PuyosModel {
   }
 
   drop(id: number) {
-    const newPuyo = getPuyo({ color: "red", position: "up" });
-    this._setPuyos((prev) => [...prev, { PuyoComponent: newPuyo, id }]);
+    const upPuyo = getPuyo({ color: "red", position: "up" });
+    const downPuyo = getPuyo({ color: "blue", position: "down" });
+    this._setPuyos((prev) => [...prev, { PuyoComponent: upPuyo, id }]);
+    this._setPuyos((prev) => [...prev, { PuyoComponent: downPuyo, id }]);
   }
 }
