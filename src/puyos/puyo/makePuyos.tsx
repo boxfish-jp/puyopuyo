@@ -1,23 +1,21 @@
 import { useState, useEffect, type ComponentType } from "react";
 
-interface puyoSettingType {
+interface PuyoSetting {
   color: "red" | "yellow" | "green" | "blue" | "purple";
   position: "up" | "down";
 }
 
-interface puyoCssType {
+interface PuyoCss {
   color: string;
   yPosition: number;
 }
 
-export const getPuyo = (puyoSetting: puyoSettingType): ComponentType => {
-  return () => <PuyoComponent puyoSetting={puyoSetting} />;
+export const getPuyo = (setting: PuyoSetting): ComponentType => {
+  return () => <PuyoComponent setting={setting} />;
 };
 
-export const PuyoComponent = ({
-  puyoSetting,
-}: { puyoSetting: puyoSettingType }) => {
-  const puyoCss = getPuyoCss(puyoSetting);
+export const PuyoComponent = ({ setting }: { setting: PuyoSetting }) => {
+  const puyoCss = getPuyoCss(setting);
 
   const [positon, setPosition] = useState({ x: 150, y: puyoCss.yPosition });
 
@@ -40,9 +38,9 @@ export const PuyoComponent = ({
   );
 };
 
-const getPuyoCss = (puyoSetting: puyoSettingType): puyoCssType => {
-  const color = getCssColor(puyoSetting.color);
-  const yPosition = getPosition(puyoSetting.position);
+const getPuyoCss = (setting: PuyoSetting): PuyoCss => {
+  const color = getCssColor(setting.color);
+  const yPosition = getPosition(setting.position);
   return { color, yPosition };
 };
 

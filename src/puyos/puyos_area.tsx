@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { PuyosModel } from "./puyosModel";
-import type { PuyoType } from "./puyosModel";
+import type { Puyo } from "./puyo/puyo_type";
 
 export const PuyosArea = () => {
-  const [puyos, setPuyos] = useState<PuyoType[]>([]);
+  const [puyos, setPuyos] = useState<Puyo[]>([]);
   const puyosModel = new PuyosModel(setPuyos);
 
   useEffect(() => {

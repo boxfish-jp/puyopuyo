@@ -1,15 +1,11 @@
-import type { ComponentType, Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { getPuyo } from "./puyo/makePuyos";
-
-export interface PuyoType {
-  PuyoComponent: ComponentType;
-  id: number;
-}
+import type { Puyo } from "./puyo/puyo_type";
 
 export class PuyosModel {
-  private _setPuyos: Dispatch<SetStateAction<PuyoType[]>>;
+  private _setPuyos: Dispatch<SetStateAction<Puyo[]>>;
 
-  constructor(setPuyos: Dispatch<SetStateAction<PuyoType[]>>) {
+  constructor(setPuyos: Dispatch<SetStateAction<Puyo[]>>) {
     this._setPuyos = setPuyos;
   }
 
