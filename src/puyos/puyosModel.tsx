@@ -1,5 +1,5 @@
 import type { ComponentType, Dispatch, SetStateAction } from "react";
-import { makePuyos } from "./puyo/makePuyos";
+import { getPuyo } from "./puyo/makePuyos";
 
 export interface PuyoType {
   PuyoComponent: ComponentType;
@@ -13,9 +13,8 @@ export class PuyosModel {
     this._setPuyos = setPuyos;
   }
 
-  drop(puyosId: number) {
-    const id = puyosId;
-    const newPuyo: ComponentType = makePuyos({ color: "red", position: "up" });
+  drop(id: number) {
+    const newPuyo = getPuyo({ color: "red", position: "up" });
     this._setPuyos((prev) => [...prev, { PuyoComponent: newPuyo, id }]);
   }
 }

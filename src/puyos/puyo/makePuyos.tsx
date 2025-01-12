@@ -5,12 +5,20 @@ interface puyoSettingType {
   position: "up" | "down";
 }
 
-export const makePuyos = (puyoSetting: puyoSettingType): ComponentType => {
-  return PuyoComponent;
+interface puyoCssType {
+  color: string;
+}
+
+export const getPuyo = (puyoSetting: puyoSettingType): ComponentType => {
+  return () => <PuyoComponent puyoSetting={puyoSetting} />;
 };
 
-const PuyoComponent: React.FC = () => {
+export const PuyoComponent = ({
+  puyoSetting,
+}: { puyoSetting: puyoSettingType }) => {
   const [positon, setPosition] = useState({ x: 150, y: 750 });
+
+  const puyoCss = getPuyoCss(puyoSetting);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -25,8 +33,32 @@ const PuyoComponent: React.FC = () => {
 
   return (
     <div
-      className="absolute bg-blue-700 w-[60px] h-[60px] rounded-full z-10"
+      className={`absolute ${puyoCss.color} w-[60px] h-[60px] rounded-full z-10`}
       style={{ left: `${positon.x - 30}px`, top: `${720 - positon.y - 30}px` }}
     />
   );
+};
+
+const getPuyoCss = (puyoSetting: puyoSettingType): puyoCssType => {
+  let color: string;
+  switch (puyoSetting.color) {
+    case "red":
+      color = "bg-red-700";
+      break;
+    case "yellow":
+      color = "bg-yellow-700";
+      break;
+    case "green":
+      color = "bg-green-700";
+      break;
+    case "blue":
+      color = "bg-blue-700";
+      break;
+    case "purple":
+      color = "bg-purple-700";
+      break;
+    default:
+      throw new Error("Invalid color");
+  }
+  return { color };
 };
