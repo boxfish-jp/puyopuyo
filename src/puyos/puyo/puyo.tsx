@@ -16,14 +16,14 @@ export const PuyoComponent = ({ puyo }: { puyo: Puyo }) => {
 const getColorName = (color: Puyo["color"]): string => {
   switch (color) {
     case "red":
-      return "bg-red-700";
+      return "bg-red-400";
     case "yellow":
-      return "bg-yellow-700";
+      return "bg-yellow-400";
     case "green":
-      return "bg-green-700";
+      return "bg-green-500";
     case "blue":
-      return "bg-blue-700";
+      return "bg-blue-400";
     case "purple":
-      return "bg-purple-700";
+      return "bg-purple-400";
   }
 };
