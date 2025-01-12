@@ -1,4 +1,4 @@
-import { PuyosArea } from "./puyos/puyos_area";
+import { PuyosArea } from "./puyos_area";
 
 export function App() {
   return (
