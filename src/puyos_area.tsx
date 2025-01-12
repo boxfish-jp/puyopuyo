@@ -10,23 +10,21 @@ export const PuyosArea = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      for (const puyo of puyos) {
+      let prevPuyos = puyos;
+      const movePuyos = prevPuyos
+        .filter((puyo) => puyo.stopped === null)
+        .sort((a, b) => (a.position.y >= b.position.y ? 1 : -1));
+      for (const puyo of movePuyos) {
         if (isStopped(puyos, puyo.position)) {
-          setPuyos((prev) => {
-            const settedPuyos = setStopped(prev, puyo.id);
-            return [...settedPuyos];
-          });
+          prevPuyos = setStopped(prevPuyos, puyo.id);
         } else {
-          setPuyos((prev) => {
-            const movedPuyos = downPuyo(prev, puyo.id);
-            return [...movedPuyos];
-          });
+          prevPuyos = downPuyo(prevPuyos, puyo.id);
         }
       }
-      const movePuyos = puyos.filter((puyo) => puyo.stopped === null);
       if (movePuyos.length === 0) {
-        setPuyos(addPuyos(puyos.length, puyos));
+        setPuyos(addPuyos(prevPuyos.length, prevPuyos));
       }
+      setPuyos([...prevPuyos]);
     }, 1000 / 60);
     return () => clearInterval(intervalId);
   }, [puyos]);
