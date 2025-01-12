@@ -1,3 +1,4 @@
+import { getGridPosition } from "./gridPosition";
 import type { Puyo } from "./puyo/puyo_type";
 
 export const isStopped = (
@@ -23,17 +24,6 @@ export const setStopped = (puyos: Puyo[], id: number) => {
 	const index = puyos.findIndex((puyo) => puyo.id === id);
 	puyos[index].stopped = getStopped(puyos[index].position);
 	return puyos;
-};
-
-const getGridPosition = (
-	position: Puyo["position"],
-): Puyo["stopped"] | false => {
-	if ((position.y - 30) % 60 !== 0 || (position.x - 30) % 60 !== 0) {
-		return false;
-	}
-	const x = (position.x - 30) / 60;
-	const y = (position.y - 30) / 60;
-	return { x, y } as Puyo["stopped"];
 };
 
 const getStopped = (position: Puyo["position"]): Puyo["stopped"] => {
